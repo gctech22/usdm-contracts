@@ -31,7 +31,7 @@ import "./Blacklistable.sol";
 import "./Rescuable.sol";
 
 /**
- * @title FiatToken
+ * @title USDm
  * @dev ERC20 Token backed by fiat reserves
  */
 contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
@@ -50,6 +50,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     mapping(address => uint256) internal minterAllowed;
 
     event Mint(address indexed minter, address indexed to, uint256 amount);
+    event MintByMaster(address indexed masterMinter, address indexed to, uint256 amount);
     event Burn(address indexed burner, uint256 amount);
     event MinterConfigured(address indexed minter, uint256 minterAllowedAmount);
     event MinterRemoved(address indexed oldMinter);
@@ -65,22 +66,22 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         address newBlacklister,
         address newOwner
     ) public {
-        require(!initialized, "FiatToken: contract is already initialized");
+        require(!initialized, "USDm: contract is already initialized");
         require(
             newMasterMinter != address(0),
-            "FiatToken: new masterMinter is the zero address"
+            "USDm: new masterMinter is the zero address"
         );
         require(
             newPauser != address(0),
-            "FiatToken: new pauser is the zero address"
+            "USDm: new pauser is the zero address"
         );
         require(
             newBlacklister != address(0),
-            "FiatToken: new blacklister is the zero address"
+            "USDm: new blacklister is the zero address"
         );
         require(
             newOwner != address(0),
-            "FiatToken: new owner is the zero address"
+            "USDm: new owner is the zero address"
         );
 
         name = tokenName;
@@ -98,7 +99,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
      * @dev Throws if called by any account other than a minter
      */
     modifier onlyMinters() {
-        require(minters[msg.sender], "FiatToken: caller is not a minter");
+        require(minters[msg.sender], "USDm: caller is not a minter");
         _;
     }
 
@@ -117,13 +118,14 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         notBlacklisted(_to)
         returns (bool)
     {
-        require(_to != address(0), "FiatToken: mint to the zero address");
-        require(_amount > 0, "FiatToken: mint amount not greater than 0");
+        require(_to != address(0), "USDm: mint to the zero address");
+        require(_amount > 0, "USDm: mint amount not greater than 0");
+        require(_to == masterMinter,"USDm: Minters can only mint tokens to master minter address");
 
         uint256 mintingAllowedAmount = minterAllowed[msg.sender];
         require(
             _amount <= mintingAllowedAmount,
-            "FiatToken: mint amount exceeds minterAllowance"
+            "USDm: mint amount exceeds minterAllowance"
         );
 
         totalSupply_ = totalSupply_ + _amount;
@@ -140,9 +142,26 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     modifier onlyMasterMinter() {
         require(
             msg.sender == masterMinter,
-            "FiatToken: caller is not the masterMinter"
+            "USDm: caller is not the masterMinter"
         );
         _;
+    }
+
+    function mintByMaster(address _to, uint256 _amount)
+        external
+        whenNotPaused
+        onlyMasterMinter
+        notBlacklisted(_to)
+        returns (bool)
+    {
+        require(_to != address(0), "USDm: mint to the zero address");
+        require(_amount > 0, "USDm: mint amount not greater than 0");
+
+        totalSupply_ = totalSupply_ + _amount;
+        balances[_to] = balances[_to] + _amount;
+        emit MintByMaster(msg.sender, _to, _amount);
+        emit Transfer(address(0), _to, _amount);
+        return true;
     }
 
     /**
@@ -350,8 +369,8 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         notBlacklisted(msg.sender)
     {
         uint256 balance = balances[msg.sender];
-        require(_amount > 0, "FiatToken: burn amount not greater than 0");
-        require(balance >= _amount, "FiatToken: burn amount exceeds balance");
+        require(_amount > 0, "USDm: burn amount not greater than 0");
+        require(balance >= _amount, "USDm: burn amount exceeds balance");
 
         totalSupply_ = totalSupply_ - _amount;
         balances[msg.sender] = balance - _amount;
@@ -362,7 +381,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     function updateMasterMinter(address _newMasterMinter) external onlyOwner {
         require(
             _newMasterMinter != address(0),
-            "FiatToken: new masterMinter is the zero address"
+            "USDm: new masterMinter is the zero address"
         );
         masterMinter = _newMasterMinter;
         emit MasterMinterChanged(masterMinter);
