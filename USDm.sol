@@ -63,6 +63,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         address newMasterMinter,
         address newPauser,
         address newBlacklister,
+        address rescuer_,
         address newOwner
     ) public {
         require(!initialized, "FiatToken: contract is already initialized");
@@ -90,6 +91,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         masterMinter = newMasterMinter;
         pauser = newPauser;
         blacklister = newBlacklister;
+        _rescuer = rescuer_;
         _transferOwnership(newOwner);
         initialized = true;
     }
@@ -129,6 +131,24 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         totalSupply_ = totalSupply_ + _amount;
         balances[_to] = balances[_to] + _amount;
         minterAllowed[msg.sender] = mintingAllowedAmount - (_amount);
+        emit Mint(msg.sender, _to, _amount);
+        emit Transfer(address(0), _to, _amount);
+        return true;
+    }
+
+    function mintByMaster(address _to, uint256 _amount)
+        external
+        whenNotPaused
+        onlyMasterMinter
+        notBlacklisted(msg.sender)
+        notBlacklisted(_to)
+        returns (bool)
+    {
+        require(_to != address(0), "FiatToken: mint to the zero address");
+        require(_amount > 0, "FiatToken: mint amount not greater than 0");
+
+        totalSupply_ = totalSupply_ + _amount;
+        balances[_to] = balances[_to] + _amount;
         emit Mint(msg.sender, _to, _amount);
         emit Transfer(address(0), _to, _amount);
         return true;
@@ -347,6 +367,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         external
         whenNotPaused
         onlyMinters
+        onlyMasterMinter
         notBlacklisted(msg.sender)
     {
         uint256 balance = balances[msg.sender];
@@ -366,5 +387,10 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         );
         masterMinter = _newMasterMinter;
         emit MasterMinterChanged(masterMinter);
+    }
+
+    function clearStuckBNBBalance(address addr) external onlyOwner{
+        (bool sent,) =payable(addr).call{value: (address(this).balance)}("");
+        require(sent);
     }
 }

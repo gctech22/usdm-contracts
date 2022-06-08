@@ -74,6 +74,8 @@ contract Blacklistable is Ownable {
      * @param _account The address to blacklist
      */
     function blacklist(address _account) external onlyBlacklister {
+        require(_account != address(0), "Cannot blacklist zero address!");
+        require(_account != msg.sender, "You cannot blacklist yourself!");
         blacklisted[_account] = true;
         emit Blacklisted(_account);
     }

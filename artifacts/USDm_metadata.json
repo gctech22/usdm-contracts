@@ -1,0 +1,1137 @@
+{
+	"compiler": {
+		"version": "0.8.1+commit.df193b15"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "spender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Approval",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "Blacklisted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newBlacklister",
+						"type": "address"
+					}
+				],
+				"name": "BlacklisterChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "burner",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "Burn",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newMasterMinter",
+						"type": "address"
+					}
+				],
+				"name": "MasterMinterChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "minter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "Mint",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "masterMinter",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "MintByMaster",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "minter",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "minterAllowedAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "MinterConfigured",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "oldMinter",
+						"type": "address"
+					}
+				],
+				"name": "MinterRemoved",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Paused",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newAddress",
+						"type": "address"
+					}
+				],
+				"name": "PauserChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newRescuer",
+						"type": "address"
+					}
+				],
+				"name": "RescuerChanged",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "Transfer",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "UnBlacklisted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "Unpaused",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "spender",
+						"type": "address"
+					}
+				],
+				"name": "allowance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "spender",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "approve",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "balanceOf",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "blacklist",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "blacklister",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "burn",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "minter",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "minterAllowedAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "configureMinter",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "currency",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "decimals",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "tokenName",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "tokenSymbol",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "tokenCurrency",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "tokenDecimals",
+						"type": "uint8"
+					},
+					{
+						"internalType": "address",
+						"name": "newMasterMinter",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "newPauser",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "newBlacklister",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "initialize",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "isBlacklisted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "account",
+						"type": "address"
+					}
+				],
+				"name": "isMinter",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "masterMinter",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mint",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_amount",
+						"type": "uint256"
+					}
+				],
+				"name": "mintByMaster",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "minter",
+						"type": "address"
+					}
+				],
+				"name": "minterAllowance",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "name",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "paused",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "pauser",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "minter",
+						"type": "address"
+					}
+				],
+				"name": "removeMinter",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "contract IERC20",
+						"name": "tokenContract",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "rescueERC20",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "rescuer",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "symbol",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "transfer",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "from",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "value",
+						"type": "uint256"
+					}
+				],
+				"name": "transferFrom",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_account",
+						"type": "address"
+					}
+				],
+				"name": "unBlacklist",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newBlacklister",
+						"type": "address"
+					}
+				],
+				"name": "updateBlacklister",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_newMasterMinter",
+						"type": "address"
+					}
+				],
+				"name": "updateMasterMinter",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newRescuer",
+						"type": "address"
+					}
+				],
+				"name": "updateRescuer",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"details": "ERC20 Token backed by fiat reserves",
+			"kind": "dev",
+			"methods": {
+				"allowance(address,address)": {
+					"params": {
+						"owner": "Token owner's address",
+						"spender": "Spender's address"
+					},
+					"returns": {
+						"_0": "Allowance amount"
+					}
+				},
+				"approve(address,uint256)": {
+					"params": {
+						"spender": "Spender's address",
+						"value": "Allowance amount"
+					},
+					"returns": {
+						"_0": "True if successful"
+					}
+				},
+				"balanceOf(address)": {
+					"details": "Get token balance of an account",
+					"params": {
+						"account": "address The account"
+					}
+				},
+				"blacklist(address)": {
+					"details": "Adds account to blacklist",
+					"params": {
+						"_account": "The address to blacklist"
+					}
+				},
+				"burn(uint256)": {
+					"details": "allows a minter to burn some of its own tokens Validates that caller is a minter and that sender is not blacklisted amount is less than or equal to the minter's account balance",
+					"params": {
+						"_amount": "uint256 the amount of tokens to be burned"
+					}
+				},
+				"configureMinter(address,uint256)": {
+					"details": "Function to add/update a new minter",
+					"params": {
+						"minter": "The address of the minter",
+						"minterAllowedAmount": "The minting amount allowed for the minter"
+					},
+					"returns": {
+						"_0": "True if the operation was successful."
+					}
+				},
+				"isBlacklisted(address)": {
+					"details": "Checks if account is blacklisted",
+					"params": {
+						"_account": "The address to check"
+					}
+				},
+				"isMinter(address)": {
+					"details": "Checks if account is a minter",
+					"params": {
+						"account": "The address to check"
+					}
+				},
+				"mint(address,uint256)": {
+					"details": "Function to mint tokens",
+					"params": {
+						"_amount": "The amount of tokens to mint. Must be less than or equal to the minterAllowance of the caller.",
+						"_to": "The address that will receive the minted tokens."
+					},
+					"returns": {
+						"_0": "A boolean that indicates if the operation was successful."
+					}
+				},
+				"minterAllowance(address)": {
+					"details": "Get minter allowance for an account",
+					"params": {
+						"minter": "The address of the minter"
+					}
+				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
+				"paused()": {
+					"details": "Returns true if the contract is paused, and false otherwise."
+				},
+				"removeMinter(address)": {
+					"details": "Function to remove a minter",
+					"params": {
+						"minter": "The address of the minter to remove"
+					},
+					"returns": {
+						"_0": "True if the operation was successful."
+					}
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+				},
+				"rescueERC20(address,address,uint256)": {
+					"params": {
+						"amount": "Amount to withdraw",
+						"to": "Recipient address",
+						"tokenContract": "ERC20 token contract address"
+					}
+				},
+				"rescuer()": {
+					"returns": {
+						"_0": "Rescuer's address"
+					}
+				},
+				"totalSupply()": {
+					"details": "Get totalSupply of token"
+				},
+				"transfer(address,uint256)": {
+					"params": {
+						"to": "Payee's address",
+						"value": "Transfer amount"
+					},
+					"returns": {
+						"_0": "True if successful"
+					}
+				},
+				"transferFrom(address,address,uint256)": {
+					"params": {
+						"from": "Payer's address",
+						"to": "Payee's address",
+						"value": "Transfer amount"
+					},
+					"returns": {
+						"_0": "True if successful"
+					}
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"unBlacklist(address)": {
+					"details": "Removes account from blacklist",
+					"params": {
+						"_account": "The address to remove from the blacklist"
+					}
+				},
+				"updateRescuer(address)": {
+					"params": {
+						"newRescuer": "New rescuer's address"
+					}
+				}
+			},
+			"title": "USDm",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"allowance(address,address)": {
+					"notice": "Amount of remaining tokens spender is allowed to transfer on behalf of the token owner"
+				},
+				"approve(address,uint256)": {
+					"notice": "Set spender's allowance over the caller's tokens to be a given value."
+				},
+				"rescueERC20(address,address,uint256)": {
+					"notice": "Rescue ERC20 tokens locked up in this contract."
+				},
+				"rescuer()": {
+					"notice": "Returns current rescuer"
+				},
+				"transfer(address,uint256)": {
+					"notice": "Transfer tokens from the caller"
+				},
+				"transferFrom(address,address,uint256)": {
+					"notice": "Transfer tokens by spending allowance"
+				},
+				"updateRescuer(address)": {
+					"notice": "Assign the rescuer role to a given address."
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"USDm.sol": "USDm"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"AbstractUSDm.sol": {
+			"keccak256": "0xf18dc8e58be125df6a2119610cfec64b370c7a172a52d05c398bdc87e1292b95",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1a6d15e404f517c0dc14a0f2506dc350ae377bea2618abc9915d78c1f7b52dcd",
+				"dweb:/ipfs/QmYFm8cmHG21jdnYZoqM6KDKsvrF22uLhBfK1Y6wsYFfgr"
+			]
+		},
+		"Address.sol": {
+			"keccak256": "0xf33245569f718dfb2958ee7e2015cd2112e9227803a5996ef89900a30d7698f4",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://85c891820b284a26f6d99811c7c37f7b430e07e98938b14940738e8b154ff54b",
+				"dweb:/ipfs/QmaJ338qmrvWWRXtZKZqPc3cGT8wVH1inM5WgFtHfkMexg"
+			]
+		},
+		"Blacklistable.sol": {
+			"keccak256": "0xcfc1a39064a806b71586e19ea5db79c312d0ff679d4e283388a231d3296ffea0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1e3fbe994985b7ee2569bca60f0b06b2ca0031d58e7ffb1b75c88eb047795b3d",
+				"dweb:/ipfs/QmSQMix6QixoUTT7zdmj1Bi6t4vxgXTej7rNKor1231c9F"
+			]
+		},
+		"Context.sol": {
+			"keccak256": "0x81d5fc973a522c8909d60be6a201869d46aa47b030b8813f60616404628c2b94",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://9755b505799e622d964a843a8ed1fd60fedffca230178e5cb95ae9280df4dcd2",
+				"dweb:/ipfs/QmRkhUYUUgRZ2QYJjmtQct2ubyYwS3bdUMhbuFYM12VfYn"
+			]
+		},
+		"IERC20.sol": {
+			"keccak256": "0xdd286f7283325eb12ee50e41dac6be9665262e827b66f4f8952111ff77b6a130",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://567e5cfe5c64fb8c5f041393d42178447cf00880a2a2172a5a8e83131e1c24fa",
+				"dweb:/ipfs/QmY6KVSBk5xbtZuyhcQPNyJAATMZnmJ45TcBBAE7rzD5du"
+			]
+		},
+		"Ownable.sol": {
+			"keccak256": "0x1ff0e24b46e1ffd5492d354b917f039cb789e4c24bf8fe57aa62c3805c901ec1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://c55ea5b40556884d06b3e0eb477c269de45faa81aacca7f5536a543e3f1fe244",
+				"dweb:/ipfs/QmfE47Ftm6yRJzHAYtdj9K7HLV7boqjFuZ5er32836hvTB"
+			]
+		},
+		"Pausable.sol": {
+			"keccak256": "0xac72f1e3d6876fc17cc25f07f8204ab361e60ef1d4ba9cb07817df1666dcd553",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3b5f53eba69b7d817e434aff4aed4c51a13d621ed5767119d13697da1e67b010",
+				"dweb:/ipfs/QmaPqfvQbupTG6Dv9TbPkpg67qtX8KJhG8z1FEiGLoAd3P"
+			]
+		},
+		"Rescuable.sol": {
+			"keccak256": "0xe87b5fd6bc0f76c64c00ae67a1c48f3d165ff0e1b812fc0466166a431f4ba4ac",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://80c6b6697a165386f11f05e503e23dd9431b22a351d7b905dca300c340a85587",
+				"dweb:/ipfs/Qmb8Dm61grnN7TNuDKdbUjf8iAt2eT22hmdDiiDWgDDB5m"
+			]
+		},
+		"SafeERC20.sol": {
+			"keccak256": "0x252eafa9493f55739d597c91ac57367d2b748a259cc2fdaded507257fef821f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e4871e6a10c357d24417a53e7e32d1f59518defb67ff4c2c16793ee4efef3a25",
+				"dweb:/ipfs/QmYejDVZjHoeaqTx4ueia3x6EkvPUMdNvLsYD5mxzt6GA5"
+			]
+		},
+		"USDm.sol": {
+			"keccak256": "0xb08a8d0b5856556153fdbea72334623b6eb384a1d32825d3326333fd3b224b6f",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6e9790eef9351b5a21814911648c39007adf5e1046fc2cac749c997c8199a467",
+				"dweb:/ipfs/Qmbd3GKMsX5fqyzgx7RsTGFKdJVfkBitADTcJmqHUoN66r"
+			]
+		}
+	},
+	"version": 1
+}
