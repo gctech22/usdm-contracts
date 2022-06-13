@@ -31,7 +31,7 @@ import { SafeERC20 } from "./SafeERC20.sol";
 contract Rescuable is Ownable {
     using SafeERC20 for IERC20;
 
-    address private _rescuer;
+    address public _rescuer;
 
     event RescuerChanged(address indexed newRescuer);
 
@@ -70,6 +70,7 @@ contract Rescuable is Ownable {
      * @param newRescuer New rescuer's address
      */
     function updateRescuer(address newRescuer) external onlyOwner {
+        require(newRescuer != _rescuer, "Already rescuer!");
         require(
             newRescuer != address(0),
             "Rescuable: new rescuer is the zero address"
