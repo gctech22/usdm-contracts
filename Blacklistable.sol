@@ -90,6 +90,7 @@ contract Blacklistable is Ownable {
     }
 
     function updateBlacklister(address _newBlacklister) external onlyOwner {
+        require(_newBlacklister != blacklister, "Already blacklister");
         require(
             _newBlacklister != address(0),
             "Blacklistable: new blacklister is the zero address"
