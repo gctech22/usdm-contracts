@@ -47,6 +47,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     mapping(address => uint256) internal balances;
     mapping(address => mapping(address => uint256)) internal allowed;
     uint256 internal totalSupply_ = 0;
+    uint256 public maxTotalSupply = 1 * 1e9 * 1e18;
     mapping(address => bool) internal minters;
     mapping(address => uint256) internal minterAllowed;
 
@@ -122,6 +123,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     {
         require(_to != address(0), "FiatToken: mint to the zero address");
         require(_amount > 0, "FiatToken: mint amount not greater than 0");
+        require(_amount + totalSupply_ <= maxTotalSupply, "Max total supply has been minted. No more minting allowed!");
 
         uint256 mintingAllowedAmount = minterAllowed[msg.sender];
         require(
@@ -147,6 +149,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     {
         require(_to != address(0), "FiatToken: mint to the zero address");
         require(_amount > 0, "FiatToken: mint amount not greater than 0");
+        require(_amount + totalSupply_ <= maxTotalSupply, "Max total supply has been minted. No more minting allowed!");
 
         totalSupply_ = totalSupply_ + _amount;
         balances[_to] = balances[_to] + _amount;
