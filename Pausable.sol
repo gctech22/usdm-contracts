@@ -102,6 +102,7 @@ abstract contract Pausable is Context, Ownable {
     }
 
     function _updatePauser(address value) external onlyOwner {
+        require(value != pauser, "Already pauser");
         pauser = value;
     }
 }
