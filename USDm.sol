@@ -18,7 +18,8 @@
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
  * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * OUT OF OR IN CONNECTION WITH THE SOFTWA
+ ';/////RE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
 
@@ -381,6 +382,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     }
 
     function updateMasterMinter(address _newMasterMinter) external onlyOwner {
+        require(_newMasterMinter != masterMinter, "Already master minter");
         require(
             _newMasterMinter != address(0),
             "FiatToken: new masterMinter is the zero address"
