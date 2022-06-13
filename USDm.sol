@@ -352,6 +352,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
         onlyMasterMinter
         returns (bool)
     {
+        require(minters[minter], "Not a minter");
         minters[minter] = false;
         minterAllowed[minter] = 0;
         emit MinterRemoved(minter);
