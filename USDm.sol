@@ -170,6 +170,17 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     }
 
     /**
+     * @dev Throws if called by any account other than the masterMinter
+     */
+    modifier eitherMinterOrMasterMinter() {
+        require(
+            msg.sender == masterMinter || minters[msg.sender] ,
+            "FiatToken: caller is not the masterMinter"
+        );
+        _;
+    }
+
+    /**
      * @dev Get minter allowance for an account
      * @param minter The address of the minter
      */
@@ -371,8 +382,7 @@ contract USDm is AbstractUSDm, Ownable, Pausable, Blacklistable, Rescuable {
     function burn(uint256 _amount)
         external
         whenNotPaused
-        onlyMinters
-        onlyMasterMinter
+        eitherMinterOrMasterMinter
         notBlacklisted(msg.sender)
     {
         uint256 balance = balances[msg.sender];
